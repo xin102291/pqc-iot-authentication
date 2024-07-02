@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>藥物訊息</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        header {
+            background-color: #3f51b5;
+            color: white;
+            padding: 10px 0;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        nav ul li {
+            margin-right: 10px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        nav ul li a:hover {
+            background-color: #555;
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+        .user-info #patient-name {
+            margin-right: 10px;
+        }
+        .user-info #logout {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .user-info #logout:hover {
+            background-color: #555;
+        }
+        main {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #3f51b5;
+            border-bottom: 2px solid #3f51b5;
+            padding-bottom: 10px;
+        }
+        .medication {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .medication h2 {
+            color: #3f51b5;
+            margin-top: 0;
+        }
+        .medication-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .medication-info p {
+            margin: 5px 0;
+        }
+        .medication-dates {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9em;
+            color: #666;
+        }
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+            }
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            nav ul li {
+                margin-bottom: 10px;
+            }
+            .user-info {
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/home">首頁</a></li>
+                <li><a href="/patient_personal_info">個人資料</a></li>
+                <li><a href="#">健康總覽</a></li>
+                <li><a href="/medical_records">病歷記錄</a></li>
+                <li><a href="/patient_medications">藥物訊息</a></li>
+                <li><a href="/patient_test_results">檢查和檢驗結果</a></li>
+                <li><a href="#">預約管理</a></li>
+                <li><a href="/patient_medical_documents">醫療文件</a></li>
+            </ul>
+            <div class="user-info">
+                <span id="patient-name">{{ patient_name }}</span>
+                <a href="/logout" id="logout">登出</a>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <h1>藥物訊息</h1>
+        {% if medications %}
+            {% for medication in medications %}
+                <div class="medication">
+                    <h2>{{ medication.medication_name }}</h2>
+                    <div class="medication-info">
+                        <p><strong>劑量：</strong> {{ medication.dosage }}</p>
+                    </div>
+                    <div class="medication-dates">
+                        <span>開始日期：{{ medication.start_date }}</span>
+                        <span>結束日期：{{ medication.end_date if medication.end_date else '持續使用中' }}</span>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>目前無藥物訊息。</p>
+        {% endif %}
+    </main>
+</body>
+</html>
