@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>檢查和檢驗結果 - 電子健康病例</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #3f51b5;
+            color: white;
+            padding: 10px 0;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+        nav ul li {
+            margin-right: 10px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        nav ul li a:hover {
+            background-color: #555;
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+        .user-info #patient-name {
+            margin-right: 10px;
+        }
+        .user-info #logout {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .user-info #logout:hover {
+            background-color: #555;
+        }
+        main {
+            padding: 20px;
+        }
+        section {
+            margin-bottom: 20px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #3f51b5;
+            border-bottom: 2px solid #3f51b5;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #3f51b5;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .results {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul aria-label="主導航">
+                <li><a href="/home">首頁</a></li>
+                <li><a href="/patient_personal_info">個人資料</a></li>
+                <li><a href="#">健康總覽</a></li>
+                <li><a href="/patient_medical_records">病歷記錄</a></li>
+                <li><a href="/patient_medications">藥物訊息</a></li>
+                <li><a href="/patient_test_results">檢查和檢驗結果</a></li>
+                <li><a href="#">預約管理</a></li>
+                <li><a href="/patient_medical_documents">醫療文件</a></li>
+            </ul>
+            <div class="user-info">
+                <span id="patient-name">{{ patient.name|default('訪客') }}</span>
+                <a href="/logout" id="logout" aria-label="登出系統">登出</a>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section id="test-results" aria-labelledby="results-heading">
+            <h2 id="results-heading">檢查和檢驗結果</h2>
+            {% if tests_results %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>日期</th>
+                            <th>檢查類型</th>
+                            <th>結果</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for test in tests_results %}
+                        <tr>
+                            <td>{{ test.test_date }}</td>
+                            <td>{{ test.test_type }}</td>
+                            <td class="results">{{ test.results }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>目前沒有檢查和檢驗結果。</p>
+            {% endif %}
+        </section>
+    </main>
+</body>
+</html>
