@@ -39,7 +39,9 @@ def get_key(iot_id):
     filename = "items.json"
     target_dir = 'Send_message'
     os.makedirs(target_dir, exist_ok=True)
-    file_path = os.path.join(target_dir, filename)
+    
+    base_dir = os.path.dirname(os.path.abspath(__file__)) 
+    file_path = os.path.join(base_dir, "items.json")  # 確保文件使用絕對路徑
     try:
         with open(file_path, "r") as file:
             items = json.load(file)
