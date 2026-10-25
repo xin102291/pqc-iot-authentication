@@ -26,7 +26,7 @@ A lattice-based (LWE) post-quantum authentication system: a Raspberry Pi reads h
 ## 專案背景
 
 - 性質：大學畢業專題（Capstone Project）
-- 團隊：〔請補成員與分工，或只寫一句協作〕
+- 團隊：由兩人共同完成
 
 ## 架構
 
