@@ -1,0 +1,6 @@
+# 在 Raspberry Pi 上執行 main.py / Client.py；Server.py 在伺服器端執行
+numpy
+mysql-connector-python
+python-dotenv
+smbus          # MAX30102 透過 I2C 讀取（Raspberry Pi）
+# Adafruit_DHT  # 僅舊版 IoT.py（DHT11 溫濕度）需要

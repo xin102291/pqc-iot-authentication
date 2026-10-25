@@ -11,11 +11,13 @@ from .id_card import *
 from .asym import *
 from .SQL import *
 import logging
+from dotenv import load_dotenv
 
 global app
 app = Flask(__name__,static_folder="static", static_url_path="/")
 # 使用環境變量或默認值
-database_url = os.environ.get('DATABASE_URL', 'mysql+pymysql://pqc:REMOVED_PASSWORD@localhost/server')
+load_dotenv()
+database_url = os.environ.get('DATABASE_URL', 'mysql+pymysql://pqc@localhost/server')
 
 # 設置 SQLAlchemy 配置
 app.config['SQLALCHEMY_DATABASE_URI'] = database_url

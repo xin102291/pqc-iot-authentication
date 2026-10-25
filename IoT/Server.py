@@ -6,8 +6,9 @@ from asym import *
 from key import *
 from symm import *
 import os
-import mysql.connector 
+import mysql.connector
 from datetime import datetime
+from dotenv import load_dotenv
 q = 999999937
 n = 3
 scale = 10000
@@ -26,13 +27,18 @@ E_server = authentication(n, q, bound, scale, A_size, B_size, sk_size)
 pk_server = ""
 sk_server = ""
 
+load_dotenv()
+
+# MySQL 連線設定：從 .env 讀取（範本見專案根目錄 .env.example）
 mydb = mysql.connector.connect(
-    host="localhost",
-    user="xin",
-    password="REMOVED_PASSWORD",
-    database="server"
+    host=os.getenv("DB_HOST", "localhost"),
+    user=os.getenv("DB_USER", "root"),
+    password=os.getenv("DB_PASSWORD", ""),
+    database=os.getenv("DB_NAME", "server")
 )
 mycursor = mydb.cursor()
+# 感測資料要寫入哪位病患（示範資料庫的病患 ID）
+PATIENT_ID = os.getenv("IOT_PATIENT_ID", "A123456789")
 
 def get_key(iot_id):
     global pk_server,sk_server,pk_iot
@@ -164,7 +170,7 @@ def message_handle(client,info):
                     heartbeat, blood_oxygen = map(float, text_p.split(','))
                     received_time = datetime.now()
                     sql = "INSERT INTO sensor_readings (patient_id,iot_id, heartbeat, blood_oxygen, received_time) VALUES (%s, %s, %s, %s, %s)"
-                    val = ('A000000000',client_name, heartbeat,blood_oxygen, received_time)
+                    val = (PATIENT_ID, client_name, heartbeat, blood_oxygen, received_time)
 
                     mycursor.execute(sql, val)
                     mydb.commit()

@@ -3,9 +3,13 @@ from sqlalchemy.orm import sessionmaker
 from contextlib import contextmanager
 from App.SQL import *
 import json
+import os
+from dotenv import load_dotenv
 
 # 創建數據庫引擎
-engine = create_engine('mysql://pqc:REMOVED_PASSWORD@localhost/server', pool_size=5, max_overflow=0)
+load_dotenv()
+database_url = os.environ.get('DATABASE_URL', 'mysql+pymysql://pqc@localhost/server')
+engine = create_engine(database_url, pool_size=5, max_overflow=0)
 Session = sessionmaker(bind=engine)
 
 @contextmanager

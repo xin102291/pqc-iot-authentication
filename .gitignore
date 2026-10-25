@@ -1,0 +1,10 @@
+# 環境變數與密碼
+.env
+
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# key_main.py 產生的金鑰檔
+Send_message/
