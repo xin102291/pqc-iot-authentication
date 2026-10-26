@@ -103,6 +103,8 @@ cd Web
 python main.py            # http://localhost:5000
 ```
 
+偵錯模式預設關閉，開發時在 `.env` 設 `FLASK_DEBUG=true`。
+
 - `/signup`：輸入身分證字號（會檢查檢查碼）、密碼與基本資料，系統以 LWE 產生公鑰存入資料庫（不存密碼）。
 - `/login`：登入；`/realtime_encryption` 可看到簽章與驗章的每個步驟。
 - 登入後：`/home`、`/patient_personal_info`、`/patient_medical_records`、`/patient_medications`、`/patient_test_results`、`/patient_medical_documents`、`/patient_dashboard`（心跳／血氧折線圖）。
